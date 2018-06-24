@@ -1,22 +1,22 @@
 {
     "name": "kingang/builder",
-    "type": "composer-plugin",
-    "require": {
-        "composer-plugin-api": "^1.0"
-    },
-    "require-dev": {
-        "composer/composer": "1.0.*@dev"
-    },
-    "license": "Apache-2.0",
+    "description": "thinkphp sso login",
+    "type": "library",
+    "license": "Apache2",
     "authors": [
         {
             "name": "kingang",
             "email": "443721842@qq.com"
         }
     ],
+    "version":"1.0.7",
+    "require": {
+        "php": ">=5.4.0",
+        "ext-curl": "*"
+    },
     "autoload": {
         "psr-4": {
-            "think\\hello\\": "src"
+            "PhpCas\\": "src/"
         }
     }
 }

@@ -1,8 +1,8 @@
 {
     "name": "kingang/builder",
-    "description": "thinkphp sso login",
+    "description": "build bootstrap table、form ",
     "type": "library",
-    "license": "Apache2",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "kingang",

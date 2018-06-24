@@ -1,0 +1,22 @@
+{
+    "name": "kingang/hello",
+    "type": "composer-plugin",
+    "require": {
+        "composer-plugin-api": "^1.0"
+    },
+    "require-dev": {
+        "composer/composer": "1.0.*@dev"
+    },
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "kingang",
+            "email": "443721842@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "think\\hello\\": "src"
+        }
+    }
+}

@@ -1,7 +1,6 @@
 {
-    "name": "lg-team/builder",
+    "name": "kingang/builder",
     "description": "build bootstrap table、form ",
-    "type": "composer-plugin",
     "license": "Apache-2.0",
     "authors": [
         {
@@ -11,8 +10,7 @@
     ],
     "version":"1.0",
     "require": {
-        "php": ">=5.4.0",
-        "ext-curl": "*"
+        "php": ">=5.4.0"
     },
     "autoload": {
         "psr-4": {

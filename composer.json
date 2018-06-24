@@ -22,5 +22,8 @@
         "psr-4": {
 		"think\\hello\\": "src"
         }
+    },
+	    "extra": {
+        "class": "think\\hello\\SayHello"
     }
 }

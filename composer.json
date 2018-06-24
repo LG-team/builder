@@ -2,13 +2,22 @@
     "name": "kingang/builder",
     "description": "build bootstrap table、form ",
     "license": "Apache-2.0",
+	 "type": "composer-plugin",
     "authors": [
         {
             "name": "kingang",
             "email": "443721842@qq.com"
         }
     ],
+
+    "require-dev": {
+        "composer/composer": "1.0.*@dev"
+    },
     "version":"1.0",
+    "require": {
+        "php": ">=5.4.0",
+		 "composer-plugin-api": "^1.0"
+    },
     "autoload": {
         "psr-4": {
 		"think\\hello\\": "src"

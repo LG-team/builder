@@ -1,5 +1,5 @@
 {
-    "name": "kingang/hello",
+    "name": "kingang/builder",
     "type": "composer-plugin",
     "require": {
         "composer-plugin-api": "^1.0"

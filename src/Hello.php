@@ -11,7 +11,7 @@
 
 namespace think\hello;
 
-class SayHello
+class Hello
 {
     public static function world()
     {

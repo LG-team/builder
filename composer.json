@@ -1,20 +1,22 @@
 {
-    "name": "cschmitz/hello-world",
-    "description": "Creating a demo composer package.",
-    "require": {},
-    "require-dev": {
-        "phpunit/phpunit": "4.0.*"
-    },
-    "license": "MIT",
+    "name": "kingang/builder",
+    "description": "thinkphp sso login",
+    "type": "library",
+    "license": "Apache2",
     "authors": [
         {
-            "name": "cschmitz",
-            "email": "schmitz.chris@gmail.com"
+            "name": "kingang",
+            "email": "443721842@qq.com"
         }
     ],
+    "version":"1.0",
+    "require": {
+        "php": ">=5.4.0",
+        "ext-curl": "*"
+    },
     "autoload": {
         "psr-4": {
-            "CSchmitz\\HelloWorld\\": "src"
+            "PhpCas\\": "src/"
         }
     }
 }

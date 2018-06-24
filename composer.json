@@ -1,7 +1,7 @@
 {
     "name": "kingang/builder",
     "description": "build bootstrap table、form ",
-    "type": "library",
+    "type": "composer-plugin",
     "license": "Apache-2.0",
     "authors": [
         {
@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PhpCas\\": "src/"
+		"think\\hello\\": "src"
         }
     }
 }

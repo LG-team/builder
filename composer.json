@@ -1,21 +1,20 @@
 {
-    "name": "kingang/builder",
-    "description": "build bootstrap table、form ",
-    "license": "Apache-2.0",
-	 
+    "name": "cschmitz/hello-world",
+    "description": "Creating a demo composer package.",
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*"
+    },
+    "license": "MIT",
     "authors": [
         {
-            "name": "kingang",
-            "email": "443721842@qq.com"
+            "name": "cschmitz",
+            "email": "schmitz.chris@gmail.com"
         }
     ],
-    "version":"1.0",
-    "require": {
-        "php": ">=5.4.0"
-    },
     "autoload": {
         "psr-4": {
-		"think\\": "src"
+            "CSchmitz\\HelloWorld\\": "src"
         }
     }
 }

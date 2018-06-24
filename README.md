@@ -1,2 +1,3 @@
-# builder
-快速构造Bootstrap table(X-editable)列表、表单
+# Test composer package
+
+This is a test package I'm using to learn how to create a composer package. 

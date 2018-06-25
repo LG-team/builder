@@ -1,6 +1,6 @@
 {
     "name": "kingang/builder",
-    "description": "快速构造Bootstrap table(X-editable)列表、表单",
+    "description": "快速构造Bootstrap table(X-editable)列表、表单。",
     "type": "library",
      "license": "Apache-2.0",
     "authors": [

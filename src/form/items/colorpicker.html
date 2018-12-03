@@ -1,0 +1,5 @@
+
+        <div class="js-colorpicker input-group" data-colorpicker-mode="{$form[type].mode == '' ? 'rgba' : $form[type].mode}">
+            <input class="form-control" type="text" id="{$form[type].name}" name="{$form[type].name}" value="{$form[type].value|default=''}" placeholder="请从右边选择颜色" {$form[type].extra_attr|default=''}>
+            <span class="input-group-addon"><i style="background-color: rgb(92, 144, 210);"></i></span>
+        </div>

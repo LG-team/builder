@@ -1,0 +1,6 @@
+        <select class="js-select2 form-control" id="{$form[type].name}" name="{$form[type].name}[]" data-allow-clear="true" data-placeholder="{$form[type].placeholder|default='请选择一项或多项'}" multiple="multiple" {$form[type].extra_attr|default=''}>
+            {volist name="form[type].options" id="option"}
+            {php}$key = (string)$key;{/php}
+            <option value="{$key}" {in name="key" value="$form[type].value"}selected{/in}>{$option|clear_js}</option>
+            {/volist}
+        </select>

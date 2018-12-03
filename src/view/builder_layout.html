@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="ie9 no-focus" lang="zh"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-focus" lang="zh"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    {block name="page-title"}<title>{$page_title|default='后台'} | {:config('web_site_title')} - DolphinPHP</title>{/block}
+    <meta name="description" content="{:config('web_site_description')}">
+    <meta name="author" content="caiweiming">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=0">
+    <!-- Icons -->
+    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
+    <link rel="shortcut icon" href="__ADMIN_IMG__/favicons/favicon.ico">
+	<link rel="stylesheet" href="__LIBS__/select2/select2.min.css">
+  {notempty name="css"}	{volist name="css" id="css"}
+      <link rel="stylesheet" href="{$css}">
+     {/volist}{/notempty}
+    <!-- Stylesheets -->
+    <!-- Page JS Plugins CSS -->
+    {notempty name="_css_files"}
+        {eq name="Think.config.minify_status" value="1"}
+            <link rel="stylesheet" href="{:minify('group', $_css_files)}">
+        {else/}
+            {volist name="_css_files" id="css"}
+            {:load_assets($css)}
+            {/volist}
+        {/eq}
+    {/notempty}
+{notempty name="_icons"}
+    {volist name="_icons" id="icon"}
+        <link rel="stylesheet" href="{$icon.url}">
+    {/volist}
+ {/notempty}
+    {block name="plugins-css"}{/block}
+    <!-- Bootstrap and OneUI CSS framework -->
+    {eq name="Think.config.minify_status" value="1"}
+    <link rel="stylesheet" id="css-main" href="{:minify('group', 'libs_css,core_css')}">
+    {else/}
+	 <link rel="stylesheet" href="/assets/admin/css/oneui.min.css?v={:config('asset_version')}">
+    <link rel="stylesheet" href="/assets/admin/css/app.css?v={:config('asset_version')}" id="css-main">
+	
+    {/eq}
+    <link rel="stylesheet" id="css-theme" href="/assets/admin/css/themes/{:config('system_color')}.min.css?v={:config('asset_version')}">
+    <!--页面css-->
+    {block name="style"}{/block}
+    <!-- END Stylesheets -->
+    <!--自定义css-->
+	<style>#pop1 .content{padding:0px;}</style>
+    <link rel="stylesheet" href="/assets/admin/css/custom.css?v={:config('asset_version')}">
+	<script>
+        var app = {
+		  'jcrop_upload_url': '{$jcrop_upload_url ? $jcrop_upload_url : url("admin/attachment/upload", ["dir" => "images", "from" => "jcrop", "module" => request()->module()])}',
+            'editormd_upload_url': '{$editormd_upload_url ? $editormd_upload_url : url("admin/attachment/upload", ["dir" => "images", "from" => "editormd", "module" => request()->module()])}',
+            'editormd_mudule_path': '__LIBS__/editormd/lib/',
+            'ueditor_upload_url': '{$ueditor_upload_url ? $ueditor_upload_url : url("admin/attachment/upload", ["dir" => "images", "from" => "ueditor", "module" => request()->module()])}',
+            'wangeditor_upload_url': '{$wangeditor_upload_url ? $wangeditor_upload_url : url("admin/attachment/upload", ["dir" => "images", "from" => "wangeditor", "module" => request()->module()])}',
+            'wangeditor_emotions': "__LIBS__/wang-editor/emotions.data",
+            'ckeditor_img_upload_url': '{$ckeditor_img_upload_url ? $ckeditor_img_upload_url : url("admin/attachment/upload", ["dir" => "images", "from" => "ckeditor", "module" => request()->module()])}',
+            'WebUploader_swf': '__LIBS__/webuploader/Uploader.swf',
+            'file_upload_url': '{$file_upload_url ? $file_upload_url : url("admin/attachment/upload", ["dir" => "files", "module" => request()->module()])}',
+            'image_upload_url': '{$image_upload_url ? $image_upload_url : url("admin/attachment/upload", ["dir" => "images", "module" => request()->module()])}',
+            'upload_check_url': '{$upload_check_url ? $upload_check_url : url("admin/ajax/check")}',
+	      'triggers':'{notempty name="trigger"}{:json_encode($trigger)}{/notempty}', 
+        'field_hide': '{notempty name="field_hide"}{$field_hide|default=""}{/notempty}', // 需要隐藏的字段
+        'field_values': '{notempty name="field_values"}{$field_values|default=""}{/notempty}',	
+      '_field_clear':'{notempty name="field_clear"}{:json_encode($field_clear)}{/notempty}',
+            'theme_url': '{:url("admin/ajax/setTheme")}',
+            'get_level_data': '{:url("admin/ajax/getLevelData")}',
+            'quick_edit_url': '{$quick_edit_url ? $quick_edit_url : url("quickEdit")}',
+            'validate': '{$validate|default=""}', // 验证器
+            'validate_fields': '{$validate_fields|default=""}', // 验证字段
+            'search_field': '{:input("param.search_field", "")}', // 搜索字段
+            'curr_url': '{:url("", $Request.route)}',
+            'curr_params': {:json_encode($Request.param)},	  
+		}
+ 
+		</script>
+</head>
+<body id="pop{$_pop}">
+<!-- Page Container -->
+<div id="page-container" class="">
+    <!-- Main Container -->
+    <main id="main-container">
+        <!-- Page Content -->
+        <div class="content">
+            {// 主体内容}
+            {block name="content"}{/block}
+        </div>
+        <!-- END Page Content -->
+    </main>
+    <!-- END Main Container -->
+</div>
+<!-- END Page Container -->
+
+<!-- OneUI Core JS: jQuery, Bootstrap, slimScroll, scrollLock, Appear, CountTo, Placeholder, Cookie and App.js -->
+<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+
+      <div class="modal-body" style="padding:0px;">
+        <p>One fine body&hellip;</p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal" id="NoPermissionModal" tabindex="-1" role="dialog" aria-labelledby="modal-block-large" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" >
+        <div class="modal-content" >
+            <div class="block block-themed block-transparent mb-0">
+                <div class="block-header bg-primary-dark hiddens">
+                    <h3 class="block-title">Modal Title</h3>
+                    <div class="block-options">
+                        <button type="button" class="btn-block-option" data-dismiss="modal" aria-label="Close">
+                            <i class="fa fa-fw fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="block-content" style="padding:0px">
+                        
+                <iframe id="NoPermissioniframe" scrolling="no" style="width:100%" frameborder='0'></iframe>
+         
+ 
+                </div>
+             
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" language="javascript">
+  var iframes = document.getElementsByTagName('iframe');
+        for (var i = 0, j = iframes.length; i < j; ++i) {
+            (function(_i) {
+                iframes[_i].onload = function() {
+                    this.contentWindow.onbeforeunload = function() {
+                        iframes[_i].style.visibility = 'hidden';
+                        iframes[_i].setAttribute('height', 'auto');
+                    };
+                    this.setAttribute('height', this.contentWindow.document.body.scrollHeight);
+                    this.style.visibility = 'visible';
+                };
+            })(i);
+        }
+</script>
+ 
+ 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-placeholder/2.3.1/jquery.placeholder.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.7/bootstrap-notify.min.js"></script>
+ 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.1.0/viewer.min.js"></script>
+<script src="/assets/admin/js/app.js?v={:config('asset_version')}"></script>
+<!-- Page JS Plugins-->
+{notempty name="_js_files"}
+        {volist name="_js_files" id="js"}
+        {:load_assets($js, 'js')}
+        {/volist}
+{/notempty}
+<script>
+    jQuery(function () {
+        App.initHelpers(['magnific-popup', 'table-tools']);
+        {notempty name="_js_init"}
+        App.initHelpers({:json_encode($_js_init)});
+        {/notempty}
+    });
+</script>
+<!--页面js-->
+{block name="script"}{/block}
+{// 额外HTML代码 }
+{$extra_html|default=''}
+</body>
+</html>

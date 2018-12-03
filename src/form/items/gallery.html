@@ -1,0 +1,10 @@
+        <div id="file_list_{$form[type].name}" class="gallery-list">
+            {notempty name="form[type].value"}
+            {volist name="form[type]['value']|explode=',',###" id="vo"}
+            <div class="file-item thumbnail">
+                <img data-original="{$vo|get_file_path}" src="{$vo|get_thumb}" width="100">
+            </div>
+            {/volist}
+            {/notempty}
+        </div>
+        <div class="clearfix"></div>

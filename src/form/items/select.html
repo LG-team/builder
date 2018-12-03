@@ -1,0 +1,6 @@
+        <select class="form-control" id="{$form[type].name}" name="{$form[type].name}" data-allow-clear="true" data-placeholder="{$form[type].placeholder|default='请选择一项'}" {$form[type].extra_attr|default=''}>
+            <option></option>
+            {volist name="form[type].options" id="option"}
+            <option value="{$key}" {if ((string)$form[type].value == (string)$key)}selected{/if}>{$option|clear_js}</option>
+            {/volist}
+        </select>

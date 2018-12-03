@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="ie9 no-focus" lang="zh"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-focus" lang="zh"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    {block name="page-title"}<title>{$page_title|default='后台'} | {:config('web_site_title')} - DolphinPHP</title>{/block}
+    <meta name="description" content="{:config('web_site_description')}">
+    <meta name="author" content="caiweiming">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=0">
+    <link rel="shortcut icon" href="__ADMIN_IMG__/favicons/favicon.ico">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?v={:config('asset_version')}">
+		 <!-- Custom styles for this template -->
+    <link href="/assets/bootstrap/css/dashboard.css" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/admin/fonts/fontawesome/css/all.min.css?v={:config('asset_version')}">
+	<!-- Page CSS Plugins-->
+	{volist name="_css_files" id="css"}{:load_assets($css)}{/volist}
+    {block name="style"}{/block}
+    {block name="plugins-css"}{/block}
+ <script src="/assets/admin/js/core/jquery.min.js?v={:config('asset_version')}"></script>
+		<script>
+        var app_a = {
+	     'triggers':'{notempty name="trigger"}{:json_encode($trigger)}{/notempty}', 
+          'field_hide': '{notempty name="field_hide"}{$field_hide|default=""}{/notempty}', // 
+          'field_values':'{notempty name="field_values"}{$field_values|default=""}{/notempty}',	
+            '_field_clear':'{notempty name="field_clear"}{:json_encode($field_clear)}{/notempty}',
+            'theme_url': '{:url("admin/ajax/setTheme")}',
+            'get_level_data': '{:url("admin/ajax/getLevelData")}',
+            'quick_edit_url': '{$quick_edit_url ? $quick_edit_url : url("quickEdit")}',
+            'validate': '{$validate|default=""}', // 验证器
+            'validate_fields': '{$validate_fields|default=""}', // 验证字段
+            'search_field': '{:input("param.search_field", "")}', // 搜索字段
+            'curr_url': '{:url("", $Request.route)}',
+            'curr_params': {:json_encode($Request.param)},	  
+		}
+		{block name="jsVars"}
+		var jsVars={}
+		{notempty name="jsVars"} var jsVars={:json_encode($jsVars,JSON_UNESCAPED_SLASHES)}{/notempty}
+		{/block}
+		var app=$.extend(app_a,jsVars);
+		 
+		</script>
+		
+</head>
+<body>
+<div class="modal-header">
+        <h5 class="modal-title">{$page_title|default=""|htmlspecialchars}</h5>
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+ 
+ {block name="header"}{/block}  
+ {block name="sidebar"}{/block} 
+ <main class="container-fluid" >
+   {notempty name="page_tips"}
+   <div class="alert alert-{$tips_type} alert-dismissible fade show" role="alert">
+   {$page_tips}
+   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+   </button>
+   </div>
+    {/notempty}
+   <div class="row">
+        <div class="col-md-12">
+ 
+<div class="block">
+                <div class="block-header d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
+	             {block name="page-header"}
+           		 	<ul id="table_tab" class="nav"  role="tablist">
+					{notempty name="tab_nav"}	 
+                    {volist name="tab_nav" id="tab"}
+                    <li class="nav-item">
+                    <a class="nav-link {eq name="$key" value="$key"}active{/eq}" href="{$tab.url}{$_pop ?= '?_pop=1'}">{$tab.title}</a>
+                    </li>
+                    {/volist}
+					{/notempty}
+					<li class="nav-item">
+                        <a class="nav-link" href="#tab-static-home"> <h3 class="block-title">{$page_title|default="form"|htmlspecialchars}</h3>
+						</a>
+                    </li>
+					<li class="nav-item tabc_form" style="display:none">
+                        <a class="nav-link" href="#tab_form"><h3 class="block-title">{$page_title|default="form"|htmlspecialchars}</h3></a>
+                    </li>
+					 
+		       </ul>
+           <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">				   
+                            {notempty name="topBtns"}
+							{volist name="topBtns" id="btn"}{if  $btn}      
+							<a href="{$btn.href}" data-key="{$primary_key}"   class="btn btn-sm btn-outline-secondary {$btn.class}" {notempty name="$btn['target-form']"}target-form="{$btn['target-form']}"{/notempty}>
+                                <i class="{$btn.icon} oi oi-account-login"></i>
+                            </a>
+							 {/if}{/volist}
+							 {/notempty}
+                
+				          <button type="button" class="btn btn-primary">
+                          <i class="fa fa-air-freshener"></i>
+                            </button>
+                            <button type="button" class="btn btn-primary page-reload">
+                                
+								<i class="fa fa-fw fa-refresh" aria-hidden="true"></i>
+                            </button>
+						<button type="button"  data-href="{:url('admin/Module/pages', ['name' =>'','table' =>''])}" data-target="_blank" data-toggle="tooltip" data-placement="bottom" data-original-title="列表页设置" class="btn btn-primary">
+								<i class="si si-settings"></i>
+								</button>
+              </div>
+            </div>
+   {/block}
+  </div>
+  <div class="block-content">
+        {block name="content"}{/block}  
+		</div></div>
+	</div></div>
+  </main>
+ 
+<!-- END Page Container -->
+
+ 
+ 
+<script src="/assets/admin/js/core/jquery.placeholder.min.js?v={:config('asset_version')}"></script>
+<script src="/assets/bootstrap/js/vendor/popper.js?v={:config('asset_version')}"></script>
+<script src="/assets/admin/js/core/js.cookie.min.js?v={:config('asset_version')}"></script>
+<script src="/assets/bootstrap/js/bootstrap.js?v={:config('asset_version')}"></script>
+<script src="/assets/admin/js/core/jquery.scrollLock.min.js?v={:config('asset_version')}"></script>
+<script src="/static/libs/viewer/viewer.min.js?v={:config('asset_version')}"></script>
+<script src="/static/libs/bootstrap-notify/bootstrap-notify.min.js?v={:config('asset_version')}"></script>
+<script src="/static/admin/js/app.js?v={:config('asset_version')}"></script>
+<!-- Page JS Plugins-->
+{notempty name="_js_files"}
+    {eq name="Think.config.minify_status" value="1"}
+        <script src="{:minify('group', $_js_files)}"></script>
+    {else/}
+        {volist name="_js_files" id="js"}
+        {:load_assets($js, 'js')}
+        {/volist}
+    {/eq}
+{/notempty}
+
+<script>
+    jQuery(function () {
+        App.initHelpers(['appear', 'slimscroll', 'magnific-popup', 'table-tools']);
+        {notempty name="_js_init"}
+        App.initHelpers({:json_encode($_js_init)});
+        {/notempty}
+    });
+
+</script>
+ 
+
+<!--页面js-->
+{block name="script"}{/block}
+
+<!--插件js钩子-->
+{:hook('page_plugin_js')}
+
+{// 额外HTML代码 }
+{$extra_html|default=''}
+</body>
+</html>

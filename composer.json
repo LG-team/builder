@@ -2,16 +2,16 @@
     "name": "kingang/builder",
     "description": "快速构造Bootstrap table(X-editable)列表、表单。",
     "type": "library",
-     "license": "Apache-2.0",
     "authors": [
         {
             "name": "kingang",
             "email": "443721842@qq.com"
         }
     ],
+	"license": "Apache-2.0",
 	"version":"1.0",
     "require": {
-        "php": ">=5.4.0"
+    	"topthink/framework": "5.1.*"
     },
     "autoload": {
         "psr-4": {

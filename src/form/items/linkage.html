@@ -1,0 +1,6 @@
+       <select class="form-control select-linkage" name="{$form[type].name}" id="{$form[type].name}" data-allow-clear="true" data-placeholder="请选择一项" data-url="{$form[type].ajax_url|default=''}" data-param="{$form[type].param|default=$form[type].name}" data-next-items="{$form[type].next_items}">
+            <option></option>
+            {volist name="form[type].options" id="option"}
+                <option value="{$key}" {if ($form[type].value == (string)$key)}selected{/if}>{$option|clear_js}</option>
+            {/volist}
+        </select>

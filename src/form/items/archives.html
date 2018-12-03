@@ -1,0 +1,9 @@
+
+        <ul class="list-group uploader-list" id="file_list_{$form[type].name}">
+            {notempty name="form[type].value"}
+            {volist name="form[type]['value']|explode=',',###" id="vo"}
+            <li class="list-group-item file-item"><i class="fa fa-file"></i> {$vo|get_file_name} [<a
+                    href="{$vo|get_file_path}" class="download-file">下载</a>]</li>
+            {/volist}
+            {/notempty}
+        </ul>

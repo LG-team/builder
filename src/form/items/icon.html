@@ -1,0 +1,8 @@
+        <div class="input-group js-icon-picker">
+		  <div class="input-group-prepend">
+            <span class="input-group-text input-group-addon icon" data-toggle="tooltip" data-placement="bottom" data-original-title="点击选择图标"><i class="{$form[type].value|default='fa fa-plus-circle'}"></i></span>
+			 </div>
+            <input class="form-control icon_input" type="text" id="{$form[type].name}" name="{$form[type].name}" value="{$form[type].value|default=''}" placeholder="请选择图标" {$form[type].extra_attr|default=''}>
+           <div class="input-group-append">  <span class="input-group-text input-group-addon delete-icon" data-toggle="tooltip" data-placement="bottom" data-original-title="删除图标"><i class="fa fa-times"></i></span>
+		    </div>
+        </div>

@@ -1,0 +1,19 @@
+<table class="table {$form[type].class}">
+  <thead>
+    <tr>
+     {volist name="form[type].options" id="option"} 
+	  <th scope="col">{$option}</th>{/volist}
+    </tr>
+  </thead>
+  <tbody>
+  {volist name="form[type].value" id="tds"} 
+     <tr>
+     {foreach $form[type].options as $key=>$vo } 
+    
+ 
+   <th scope="row">{$tds[$key]|raw}</th>
+	 {/foreach}
+    </tr>
+	{/volist}
+ </tbody>
+</table>

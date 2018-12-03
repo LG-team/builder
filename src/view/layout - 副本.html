@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<!--[if IE 9]>         <html class="ie9 no-focus" lang="zh"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-focus" lang="zh"> <!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    {block name="page-title"}<title>{$page_title|default='后台'} | {:config('web_site_title')} - DolphinPHP</title>{/block}
+    <meta name="description" content="{:config('web_site_description')}">
+    <meta name="author" content="caiweiming">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=0">
+    <link rel="shortcut icon" href="__ADMIN_IMG__/favicons/favicon.ico">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?v={:config('asset_version')}">
+		 <!-- Custom styles for this template -->
+    <link href="/assets/bootstrap/css/dashboard.css" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/admin/fonts/fontawesome/css/all.min.css?v={:config('asset_version')}">
+	<!-- Page CSS Plugins-->
+	{volist name="_css_files" id="css"}{:load_assets($css)}{/volist}
+    {block name="style"}{/block}
+    {block name="plugins-css"}{/block}
+ <script src="/assets/admin/js/core/jquery.min.js?v={:config('asset_version')}"></script>
+		<script>
+        var app_a = {
+	        
+            'validate': '{$validate|default=""}', // 验证器
+            'validate_fields': '{$validate_fields|default=""}', // 验证字段
+            'theme_url': '{:url("admin/ajax/setTheme")}',
+            'get_level_data': '{:url("admin/ajax/getLevelData")}',
+            'validate': '{$validate|default=""}', // 验证器
+ 
+            'search_field': '{:input("param.search_field", "")}', // 搜索字段
+            'curr_url': '{:url("", $Request.route)}',
+            'curr_params': {:json_encode($Request.param)},	  
+		}
+		{block name="jsVars"}
+		var jsVars={}
+		{notempty name="jsVars"} var jsVars={:json_encode($jsVars,JSON_UNESCAPED_SLASHES)}{/notempty}
+		{/block}
+		var app=$.extend(app_a,jsVars);
+		 
+		</script>
+</head>
+<body>
+ 
+ {notempty name="isModal"}<div class="modal-header">
+        <h5 class="modal-title">{$page_title|default=""|htmlspecialchars}</h5>
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+	   {/notempty}
+ {block name="sidebar"} {empty name="isModal"}
+<nav class="d-none d-md-block bg-dark sidebar" style="display:none!important" id="sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="logo nav-item d-flex justify-content-between bd-highlight mb-2">
+                <h6 class="nav-link active font-w600 text-dual" >
+                   <i class="oi oi-globe"></i>
+                  {$Think.config.web_site_title|default='Vic'}  
+                </h6>
+			 	<a class="d-lg-none text-dual ml-3" data-toggle="layout" data-action="sidebar_close" href="javascript:void(0)">
+                <i class="oi oi-x"></i>
+            </a> 
+              </li>
+		 
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                  Dashboard
+                </a>
+              </li>
+         
+            </ul>
+                  {notempty name="_sidebar_menus"}
+				   <ul class="nav flex-column">
+                        {volist name="_sidebar_menus" id="menu"}
+						<li class="nav-item {$menu['id'] == $_location[1]["id"]?='open'}" >
+						 <a class="nav-link text-muted submenu" data-toggle="nav-submenu" href="###">
+                        <i class="{$menu.icon|default='fa fa-fw fa-grin-tongue-wink'}"></i>
+			             <span>{$menu.title}</span>
+                         </a>
+                            {notempty name="menu['child']"}
+                           <ul class="nav flex-column mb-2 nav-submenu">
+                                {volist name="menu['child']" id="submenu"}
+                                <li class="nav-item">
+                                    <a class="nav-link {if(isset($_location[2]) && $submenu['id'] == $_location[2]["id"])}active{/if}"  href="{$submenu.url_value}" target="{$submenu.url_target}"><i class="{$submenu.icon|default='fa fa-fw fa-grin-tongue-wink'}"></i><span>{$submenu.title}</span></a>
+                                </li>
+                                {/volist}
+                            </ul>
+                            {/notempty}
+							 </li>
+                        {/volist}
+						
+						  </ul>
+                    {/notempty}
+					
+            
+          </div>
+        </nav>
+{/empty}{/block}  	   
+	   
+<div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed {$_pop?='pop'}">
+  {block name="header"}
+  {empty name="isModal"}
+  <nav class="navbar navbar-expand-lg page-header sticky-top">
+   <button type="button" class="btn btn-sm btn-dual mr-2 d-lg-none" data-toggle="layout" data-action="sidebar_toggle">
+                <i class="oi oi-menu"></i>
+            </button>
+    <button type="button" class="btn btn-sm btn-dual mr-2 d-none d-lg-inline-block" data-toggle="layout" data-action="sidebar_mini_toggle">
+                <i class="oi oi-list"></i>
+            </button>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	     {notempty name="_top_menus"}
+		 <ul class="navbar-nav mr-auto">
+            {volist name="_top_menus" id="menu"}
+            <li class="nav-item {$menu['id'] == $_location[0]['id'] ?= 'active'}">
+                <a class="nav-link" href="{$menu['url_value']}" target="{$menu['url_target']}"><i class="{$menu.icon}"></i> {$menu.title}</a>
+            </li>
+            {/volist}
+			</ul>
+            {/notempty}
+ 
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         {:session('user_auth.username')} ({:session('user_auth.role_name')})
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{:url('admin/index/profile')}">个人中心</a>
+         
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{:url('user/publics/signout')}">退出帐号</a>
+        </div>
+      </li>
+        <li class="nav-item active">
+        <a class="nav-link btn btn-default ajax-get" href="#"><span class="oi oi-delete"></span></a>
+      </li>
+    </ul>
+ 
+  </div>
+</nav>{/empty}{/block}  
+
+ <main class="container-fluid" id="{$isModal?'':'main-container'}">
+  {empty name="isModal"}
+  <div class="bg-body-light pb-2 mb-3">
+    <div class="content content-full">
+		<div class="d-flex justify-content-between"> 
+            <h1 class="flex-sm-fill h3 my-2">
+                {$page_title|default=""|htmlspecialchars} <small class="d-block d-sm-inline-block mt-2 mt-sm-0 font-size-base font-w400 text-muted">{$page_desc|default=""|htmlspecialchars} </small>
+            </h1>
+            <nav class="flex-sm-00-auto ml-sm-3 bg-light" aria-label="breadcrumb">
+			   <ol class="breadcrumb breadcrumb-alt">
+                <li class="breadcrumb-item">Home</li>
+                {notempty name="_location"}
+                {volist name="_location" id="v"}
+                <li class="breadcrumb-item" aria-current="page"><a class="link-fx" href="{:url($v.url_value)}">{$v.title}</a></li>
+                {/volist}
+                {/notempty}
+            </ol>
+              
+            </nav>
+        </div>
+   </div>
+</div>    {/empty}
+
+   {notempty name="page_tips"}
+   <div class="alert alert-{$tips_type} alert-dismissible fade show" role="alert">
+   {$page_tips}
+   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+   </button>
+   </div>
+    {/notempty}
+   <div class="row">
+        <div class="col-md-12">
+ 
+<div class="block">
+                <div class="block-header d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom">
+	             {block name="page-header"}
+           		 	<ul id="table_tab" class="nav"  role="tablist">
+					{notempty name="tab_nav"}	 
+                    {volist name="tab_nav" id="tab"}
+                    <li class="nav-item">
+                    <a class="nav-link {eq name="$key" value="$key"}active{/eq}" href="{$tab.url}{$_pop ?= '?_pop=1'}">{$tab.title}</a>
+                    </li>
+                    {/volist}
+					{else/}
+					<li class="nav-item">
+                        <a class="nav-link" href="#tab-static-home"> <h6 class="block-title">{$page_title|default=""|htmlspecialchars}</h6>
+						</a>
+                    </li>
+					{/notempty}
+					 
+					 
+		       </ul>
+           <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">				   
+                            {notempty name="topBtns"}
+							{volist name="topBtns" id="btn"}{if  $btn}      
+							<button type="button" href="{$btn.href}" data-key="{$primary_key}"   class="btn btn-sm btn-outline-secondary {$btn.class}" {notempty name="$btn['target-form']"}target-form="{$btn['target-form']}"{/notempty}>
+                                <i class="{$btn.icon} oi oi-account-login"></i>{$btn.title}
+                            </button>
+							 {/if}
+							 {/volist}
+
+							 {/notempty}
+ 
+                            <button type="button" class="btn btn-primary page-reload">
+								<i class="fa fa-fw fa-sync-alt" aria-hidden="true"></i>
+                            </button>
+							{eq name=":config('develop_mode')" value="1"}
+						<button type="button"  data-href="{:url('admin/Module/pages', ['name' =>'','table' =>''])}" data-target="_blank" data-toggle="tooltip" data-placement="bottom" data-original-title="列表页设置" class="btn btn-primary">
+								<i class="fa fa-fw fa-cogs"></i>
+								</button>
+									{/eq}
+              </div>
+            </div>
+   {/block}
+  </div>
+  <div class="block-content">
+        {block name="content"}{/block}  
+		</div></div>
+	</div></div>
+  </main>
+	</div>
+<!-- END Page Container -->	 
+ {empty name="isModal"}  
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="NoPermissionModal">
+    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+       <iframe  name='NoPermissioniframe' id="NoPermissioniframe" width='100%' height='100%' frameborder='0' scrolling="yes"   onload="this.height=NoPermissioniframe.document.body.scrollHeight"></iframe>
+  </div></div></div>
+  {/empty}
+<script src="/assets/admin/js/core/jquery.placeholder.min.js?v={:config('asset_version')}"></script>
+<script src="/assets/bootstrap/js/vendor/popper.js?v={:config('asset_version')}"></script>
+<script src="/assets/admin/js/core/js.cookie.min.js?v={:config('asset_version')}"></script>
+<script src="/assets/bootstrap/js/bootstrap.js?v={:config('asset_version')}"></script>
+<script src="/assets/bootstrap/js/bootstrap.js?v={:config('asset_version')}"></script>
+<script src="/assets/admin/js/core/jquery.scrollLock.min.js?v={:config('asset_version')}"></script>
+<script src="__LIBS__/viewer/viewer.min.js?v={:config('asset_version')}"></script>
+<script src="__LIBS__/bootstrap-notify/bootstrap-notify.min.js?v={:config('asset_version')}"></script>
+<script src="/assets/admin/js/app.js?v={:config('asset_version')}"></script>
+<!-- Page JS Plugins-->
+{notempty name="_js_files"}
+    {eq name="Think.config.minify_status" value="1"}
+        <script src="{:minify('group', $_js_files)}"></script>
+    {else/}
+        {volist name="_js_files" id="js"}
+        {:load_assets($js, 'js')}
+        {/volist}
+    {/eq}
+{/notempty}
+
+<script>
+    jQuery(function () {
+        App.initHelpers(['appear', 'slimscroll', 'magnific-popup', 'table-tools']);
+        {notempty name="_js_init"}
+        App.initHelpers({:json_encode($_js_init)});
+        {/notempty}
+    });
+$('#NoPermissionModal').on('hidden.bs.modal', function (e) {
+   
+})
+</script>
+ 
+
+<!--页面js-->
+{block name="script"}{/block}
+
+<!--插件js钩子-->
+{:hook('page_plugin_js')}
+
+{// 额外HTML代码 }
+{$extra_html|default=''}
+</body>
+</html>

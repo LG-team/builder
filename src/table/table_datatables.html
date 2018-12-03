@@ -1,0 +1,148 @@
+{extend name="$base_layout" /}
+{block name="js-var"}{/block}
+{block name="content"}
+   
+<div class="tab-content">
+ 
+<div class="tab-pane table-responsive active" id="tab-static-home" role="tabpanel">               
+{if (!empty($searchFields))}
+<div class="d-flex justify-content-between"> 
+  <div> </div>
+<div class="input-group mb-3 col-md-4">
+  <div class="input-group-prepend">
+   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#searchModal">综合搜索</button>
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">不限</button>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="javascript:void(0)" data-field="{volist name="searchFields" id="field"}{$field}|{/volist}">不限</a>
+	    {volist name="table_items" id="field"}
+	    {in name="field.name" value="$searchFields"}
+        <a class="dropdown-item" href="javascript:void(0)" data-field="{$field.name}">{$field.title}</a>{/in}
+		{/volist}
+    </div>
+  </div>
+  <input type="text" aria-label="" class="form-control" value="" id="search-input-bootable" name="keyword" placeholder="请输入{volist name="table_items" id="field"}{$field.title}/{/volist}">  
+  <input type="hidden" name="search_field" id="search-field" value="{volist name="searchFields" id="field"}{$field}|{/volist}">
+    </div>             
+   </div> 
+  {/if}
+	   <!--data-response-handler="responseHandler" 33-->
+<table class="table" id="table">
+   <thead>
+     </thead>
+</table>
+
+                      
+</div>
+
+
+
+ 
+	
+	
+
+
+<!-- Modal -->
+<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">综合搜索</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid" id="avdSearchModalContent_advancedTable" style="padding-right: 0px;padding-left: 0px;">
+{if (!empty($searchFields))}    		
+		<form class="form-horizontal" id="advancedSearch" action="">
+		{volist name="table_items" id="field"}
+		{in name="field.name" value="$searchFields"}
+		<div class="form-group"><label class="col-sm-4 control-label">{$field.title}</label><div class="col-sm-6">
+{if (!empty($field['type']))} 		{/if}		
+{eq name="field.type" value="select"}
+ <select class="form-control" name="{$field.name}">
+  <option value="">请选择{$field.title}</option>
+ {volist name="field.options" id="item"}
+  <option value="{$key}">{$item}</option>
+  {/volist}
+  
+</select>
+{else/}
+			
+		<input class="form-control input-md" name="{$field.name}" placeholder="{$field.name}" id="{$field.name}" type="text">
+		{/eq}
+
+		</div></div>
+		{/in}
+		{/volist}
+		</form>
+		{/if}
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" ID="dosearch" class="btn btn-primary">开始搜索</button>
+      </div>
+    </div>
+  </div>
+</div>
+{/block}
+
+{block name="script"}
+  <script src="/assets/admin/js/builder/table.js"></script>
+ <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script src=" https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<script src=" __LIBS__/datatables/cellEdit.js"></script>
+
+  <script>  
+  var columns=[
+  {volist name="table_items" id="field"}
+    {data:'{$field.name}',title:"{present name="$field.title"}{$field.title}{else/}{:lang($field.name)}{/present}"},
+	{/volist}
+	{data:'id',title:"操作",render: function (data, type, row, meta ) {
+      var result = "<div class='btn-group'>";
+	  console.log(meta);
+			{notempty name="rightBtns"}{volist name='rightBtns' id='btn'}
+			result +="<button data-href='{$btn.href}' data-{$btn['target-form']}="+ row.{$primary_key} +" data-index="+ row +" class='btn-xs {$btn.class}' type='button' data-toggle='tooltip'  title='{$btn.title}' ><i class='{$btn.icon}'></i></button>";
+			{/volist}{/notempty}
+			result += "</div>"
+	  return result;
+    }},
+  
+    ]
+  var $table = $('#table'),$table_token='{$table_token}';
+     $table.DataTable( {
+	  "serverSide": true,  //开启服务器模式，必须
+	   retrieve: true,
+	  "pageLength" :10,    //每页长度，可缺省
+	  "processing": true,
+ "ajax": {
+    "url": "{$post_url}?method=bootable",
+    "type": "POST"
+  },
+    columns: columns 
+    } );
+	    table.MakeCellsEditable({
+        "onUpdate": myCallbackFunction
+    });
+	function myCallbackFunction(updatedCell, updatedRow, oldValue) {
+    console.log("The new value for the cell is: " + updatedCell.data());
+    console.log("The old value for that cell was: " + oldValue);
+    console.log("The values for each cell in that row are: " + updatedRow.data());
+}
+</script>
+<style>
+th div.css-input input {
+	right: -3px;
+}
+.css-checkbox {
+	margin: -1px 0;
+}	  
+.custom-control-label::before,.custom-control-label::after {
+	left: 0rem;
+}
+.custom-control {display: -moz-deck;
+ padding-left: 0rem;
+}
+.img-thumb img{width:100px;height:100px;}
+</style>
+{/block}

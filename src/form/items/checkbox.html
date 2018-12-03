@@ -1,0 +1,7 @@
+        {volist name="form[type].options" id="option"}
+		<div class="custom-control custom-checkbox custom-control-inline">
+		<input type="checkbox" name="{$form[type].name}[]" id="{$form[type].name}{$key}" value="{$key}" <?php $key = (string)$key; ?> {in name="key" value="$form[type].value|default=''"}checked{/in} {$form[type].extra_attr|default=''} class="custom-control-input">
+        <label class="custom-control-label css-input css-checkbox css-checkbox-{$form[type].attr.color|default='primary'} css-checkbox-{$form[type].attr.size|default='sm'} css-checkbox-{$form[type].attr.shape|default='rounded'}  {$form[type].extra_label_class|default=''}" for="{$form[type].name}{$key}"><span></span> {$option|htmlspecialchars}</label>
+		</div>
+        {/volist}
+       

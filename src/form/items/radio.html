@@ -1,0 +1,9 @@
+        {volist name="form[type].options" id="option"}
+		<div class="custom-control custom-radio custom-control-inline">
+		<input type="radio" name="{$form[type].name}" id="{$form[type].name}{$i}" value="{$key}" {php}$key = (string)$key;{/php} {eq name="key" value="$form[type].value|default=''"}checked{/eq} {$form[type].extra_attr|default=''} class="custom-control-input">
+        <label class="custom-control-label css-input css-radio css-radio-{$form[type].attr.color|default='primary'} css-radio-{$form[type].attr.size|default='sm'} push-10-r  {$form[type].extra_label_class|default=''}" for="{$form[type].name}{$i}">
+            
+            <span></span> {$option|htmlspecialchars}
+        </label>
+		</div>
+        {/volist}

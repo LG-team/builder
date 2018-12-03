@@ -1,0 +1,7 @@
+{php}
+    $upload_image_ext = explode(',', config("upload_image_ext"));
+    $upload_image_ext = json_encode($upload_image_ext);
+{/php}
+        <div id="{$form[type].name}">
+            <textarea style="display:none;" class="js-editormd" data-image-formats='{$upload_image_ext|default=""}' data-watch="{$form[type].watch|default=true}" name="{$form[type].name}">{$form[type].value|default=''}</textarea>
+        </div>

@@ -1,0 +1,377 @@
+{extend name="$base_layout" /} 
+{block name="content"}
+    {$extra_html_content_top|default=''}
+    {$extra_html_form_top|default=''}
+	{empty name="form_items"}
+        {notempty name="empty_tips"}
+             <div class="form-empty">
+                <p class="text-center text-muted empty-info">
+                  <i class="fa fa-database"></i> {$empty_tips}<br>
+                     </p>
+                </div>
+       {/notempty}
+       {else /}
+   <form class="form-builder" name="form-builder" action="{$post_url|default=''}" method="{$_method}">
+  <div class="tab-content" id="myTabContent">
+  {foreach $form_items as $key=>$form_tab } 
+  <div class="tab-pane fade {$key==0?'show active':''}" id="tab{$key}" role="tabpanel" aria-labelledby="tab{$key}">
+  {volist name="form_tab" id="form"}
+	<div class="form-group row {$form.extra_class|default=''} {$form['type']=='hidden' ? 'd-none':''}" id="form_group_{$form.name} ">
+    <label for="{$form.name}" class="col-sm-12 col-form-label">{$form.title|htmlspecialchars} </label>
+    <div class="col-sm-12">
+
+           {switch name="form.type"}			
+             {case value="checkbox_tree"}
+                {include file="../vendor/kingang/builder/src/form/items/checkbox_tree.html" type='' /}
+                 {/case}
+                      {case value="table"}
+                                                {// 单行文本 }
+                                                {include file="../vendor/kingang/builder/src/form/items/table.html" type='' /}
+                                            {/case}
+										  {case value="text"}
+                                                {// 单行文本 }
+                                                {include file="../vendor/kingang/builder/src/form/items/text.html" type='' /}
+												
+                                            {/case}
+                                            {case value="archive"}
+                                                {// 档案文件 }
+                                                {include file="../vendor/kingang/builder/src/form/items/archive.html" type='' /}
+                                            {/case}
+
+                                            {case value="archives"}
+                                                {// 多个档案文件 }
+                                                {include file="../vendor/kingang/builder/src/form/items/archives.html" type='' /}
+                                            {/case}
+
+                                            {case value="bmap"}
+                                                {// 百度地图 }
+                                                {include file="../vendor/kingang/builder/src/form/items/bmap.html" type='' /}
+                                            {/case}
+
+                                            {case value="button"}
+                                                {// 按钮 }
+                                                {include file="../vendor/kingang/builder/src/form/items/button.html" type='' /}
+                                            {/case}
+
+                                            {case value="checkbox"}
+                                                {// 多选 }
+                                                {include file="../vendor/kingang/builder/src/form/items/checkbox.html" type='' /}
+                                            {/case}
+
+                                            {case value="ckeditor"}
+                                                {// ckeditor编辑器 }
+                                                {include file="../vendor/kingang/builder/src/form/items/ckeditor.html" type='' /}
+                                            {/case}
+
+                                            {case value="colorpicker"}
+                                                {// 取色器 }
+                                                {include file="../vendor/kingang/builder/src/form/items/colorpicker.html" type='' /}
+                                            {/case}
+
+                                            {case value="date"}
+                                                {// 日期 }
+                                                {include file="../vendor/kingang/builder/src/form/items/date.html" type='' /}
+                                            {/case}
+
+                                            {case value="daterange"}
+                                                {// 日期范围 }
+                                                {include file="../vendor/kingang/builder/src/form/items/daterange.html" type='' /}
+                                            {/case}
+
+                                            {case value="datetime"}
+                                                {// 日期时间 }
+                                                {include file="../vendor/kingang/builder/src/form/items/datetime.html" type='' /}
+                                            {/case}
+
+                                            {case value="editormd"}
+                                                {// markdown编辑器 }
+                                                {include file="../vendor/kingang/builder/src/form/items/editormd.html" type='' /}
+                                            {/case}
+
+                                            {case value="file"}
+                                                {// 单文件上传 }
+                                                {include file="../vendor/kingang/builder/src/form/items/file.html" type='' /}
+                                            {/case}
+
+                                            {case value="files"}
+                                                {// 多文件上传 }
+                                                {include file="../vendor/kingang/builder/src/form/items/files.html" type='' /}
+                                            {/case}
+
+                                            {case value="gallery"}
+                                                {// 图片相册 }
+                                                {include file="../vendor/kingang/builder/src/form/items/gallery.html" type='' /}
+                                            {/case}
+                                            {case value="hidden"}
+                                                {// 隐藏 }
+                                                {include file="../vendor/kingang/builder/src/form/items/hidden.html" type='' /}
+                                            {/case}
+
+                                            {case value="icon"}
+                                                {// 图标选择器 }
+                                                {include file="../vendor/kingang/builder/src/form/items/icon.html" type='' /}
+                                            {/case}
+
+                                            {case value="image"}
+                                                {// 单图片上传 }
+                                                {include file="../vendor/kingang/builder/src/form/items/image.html" type='' /}
+                                            {/case}
+
+                                            {case value="images"}
+                                                {// 多图片上传 }
+                                                {include file="../vendor/kingang/builder/src/form/items/images.html" type='' /}
+                                            {/case}
+
+                                            {case value="jcrop"}
+                                                {// 图片裁剪 }
+                                                {include file="../vendor/kingang/builder/src/form/items/jcrop.html" type='' /}
+                                            {/case}
+
+                                            {case value="linkage"}
+                                                {// 联动下拉框 }
+                                                {include file="../vendor/kingang/builder/src/form/items/linkage.html" type='' /}
+                                            {/case}
+
+                                            {case value="linkages"}
+                                                {// 多级联动下拉框 }
+                                                {include file="../vendor/kingang/builder/src/form/items/linkages.html" type='' /}
+                                            {/case}
+
+                                            {case value="masked"}
+                                                {// 格式文本 }
+                                                {include file="../vendor/kingang/builder/src/form/items/masked.html" type='' /}
+                                            {/case}
+
+                                            {case value="number"}
+                                                {// 数字 }
+                                                {include file="../vendor/kingang/builder/src/form/items/number.html" type='' /}
+                                            {/case}
+
+                                            {case value="password"}
+                                                {// 密码 }
+                                                {include file="../vendor/kingang/builder/src/form/items/password.html" type='' /}
+                                            {/case}
+
+                                            {case value="radio"}
+                                                {// 单选 }
+                                                {include file="../vendor/kingang/builder/src/form/items/radio.html" type='' /}
+                                            {/case}
+
+                                            {case value="range"}
+                                                {// 范围 }
+                                                {include file="../vendor/kingang/builder/src/form/items/range.html" type='' /}
+                                            {/case}
+
+                                            {case value="select"}
+                                                {// 下拉菜单 }
+                                                {include file="../vendor/kingang/builder/src/form/items/select.html" type='' /}
+                                            {/case}
+
+                                            {case value="select2"}
+                                                {// 下拉多选 }
+                                                {include file="../vendor/kingang/builder/src/form/items/select2.html" type='' /}
+                                            {/case}
+
+                                            {case value="sort"}
+                                                {// 排序 }
+                                                {include file="../vendor/kingang/builder/src/form/items/sort.html" type='' /}
+                                            {/case}
+
+                                            {case value="static"}
+                                                {// 静态文本 }
+                                                {include file="../vendor/kingang/builder/src/form/items/static.html" type='' /}
+                                            {/case}
+
+                                            {case value="summernote"}
+                                                {// summernote编辑器 }
+                                                {include file="../vendor/kingang/builder/src/form/items/summernote.html" type='' /}
+                                            {/case}
+
+                                            {case value="switch"}
+                                                {// 开关 }
+                                                {include file="../vendor/kingang/builder/src/form/items/switch.html" type='' /}
+                                            {/case}
+
+                                            {case value="tags"}
+                                                {// 标签 }
+                                                {include file="../vendor/kingang/builder/src/form/items/tags.html" type='' /}
+                                            {/case}
+
+                                          
+
+                                            {case value="time"}
+                                                {// 时间 }
+                                                {include file="../vendor/kingang/builder/src/form/items/time.html" type='' /}
+                                            {/case}
+
+                                            {case value="textarea|array"}
+                                                {// 文本框|数组 }
+                                                {include file="../vendor/kingang/builder/src/form/items/textarea.html" type='' /}
+                                            {/case}
+
+                                            {case value="ueditor"}
+                                                {// 百度编辑器 }
+                                                {include file="../vendor/kingang/builder/src/form/items/ueditor.html" type='' /}
+                                            {/case}
+
+                                            {case value="wangeditor"}
+                                                {// wang编辑器 }
+                                                {include file="../vendor/kingang/builder/src/form/items/wangeditor.html" type='' /}
+                                            {/case}
+                                            {default/}
+                                            {:extend_form_item($form, $_layout)}
+                                        {/switch}
+										
+		{notempty name="form.tips"}
+		<small id="{$form.name}Help" class="form-text text-muted">{$form.tips|clear_js}</small>
+        {/notempty}
+										  
+										  </div>
+										   </div>
+										    {/volist}
+											  </div>
+                                  {/foreach} </div>
+                                {/empty}
+                                <div class="form-group">
+                                    
+                                        <button class="btn btn-minw btn-primary {$submit_confirm ?= 'confirm '}{$ajax_submit ?= 'ajax-post'} {$isModal?'no-refresh _modal':''}" target-form="form-builder" data-pop="{$_pop}" data-bootable="1" type="submit">
+                                         {$btn_title['submit']|default='提交'}
+                                        </button>
+                                        <button  class="btn btn-default {$isModal?'close-modal':'history-back'}" type="button"  >{$btn_title['close']|default='关闭'}</button>
+                                        {// 额外按钮}
+                                        {$btn_extra|default=''}
+                                   
+                                </div>
+                            </form>
+                            {$extra_html_form_bottom|default=''}
+          
+             
+ 
+
+    {// 图标 }
+{notempty name="_icon"}
+  <div class="modal fade" id="icon_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">  
+  <div class="modal-dialog modal-lg" role="document">
+  <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">图标选择</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+  <div class="card">
+  <div class="card-body">
+        <div id="icon_search">
+		 
+		<div class="input-group mb-3">
+		  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon3">搜索图标</span>
+  </div>
+  <input type="text" class="form-control js-icon-search" placeholder="eg:home" aria-label="Recipient's username" aria-describedby="basic-addon2">
+ 
+</div>
+ 
+        </div>
+		<ul class="nav nav-tabs">
+ 
+  <li class="nav-item">
+    <a class="nav-link active" href="#fa">fontawesome</a>
+  </li>
+   
+          {volist name="_icons" id="icon"}
+             <li class="nav-item">
+               <a class="nav-link" href="#icon{$icon.id}"  >{$icon.name}</a>
+            </li>
+            {/volist}
+</ul>
+   
+        <div class="tab-content js-icon-content" role="tabpanel" style="padding: 10px">
+            <div class="tab-pane active in" id="fa">
+                {include file="../vendor/kingang/builder/src/form/icon/fa.html" /}
+            </div>
+            {volist name="_icons" id="icon"}
+            <div class="tab-pane" id="icon{$icon.id}">
+                {$icon.html|default='暂无图标'}
+            </div>
+            {/volist}
+        </div>
+		</div>
+    </div>
+	
+		</div>
+    </div> 
+	</div>
+	<style> 
+	.js-icon-content li {
+	font-size: 1.5em;
+    color:#646464;
+	cursor: pointer;
+ 
+}
+	.js-icon-content li:hover {
+	font-size: 1.5em;
+     color:#007bff;
+	cursor: pointer;
+ 
+}
+.js-icon-content code {
+	display: none;
+}</style>
+    {/notempty}
+    {$extra_html_content_bottom|default=''}
+{/block}
+
+{block name="style"}
+    {notempty name="_editormd"}
+    <link href="__LIBS__/editormd/css/editormd.min.css?v={:config('asset_version')}" rel="stylesheet" type="text/css" />
+    {/notempty}
+
+    {volist name="css_list" id="vo"}
+    <link rel="stylesheet" href="{$vo}?v={:config('asset_version')}">
+    {/volist}
+
+    {volist name="extend_css_list" id="vo"}
+        {volist name="vo" id="v"}
+        <link rel="stylesheet" href="{$v}?v={:config('asset_version')}">
+        {/volist}
+    {/volist}
+
+    {// 额外CSS代码 }
+    {$extra_css|default=''}
+{/block}
+
+{block name="script"}
+    <script src="/assets/admin/js/builder/form.js"></script>
+	 
+    {notempty name="_ueditor"}
+    <script src="__LIBS__/ueditor/ueditor.config.js?v={:config('asset_version')}"></script>
+    <script src="__LIBS__/ueditor/ueditor.all.min.js?v={:config('asset_version')}"></script>
+    {/notempty}
+
+    {notempty name="_ckeditor"}
+    <script src="__LIBS__/ckeditor/ckeditor.js?v={:config('asset_version')}"></script>
+    {/notempty}
+
+    {volist name="js_list" id="vo"}
+    <script src="{$vo}?v={:config('asset_version')}"></script>
+    {/volist}
+
+    {volist name="extend_js_list" id="vo"}
+        {volist name="vo" id="v"}
+        <script src="{$v}?v={:config('asset_version')}"></script>
+        {/volist}
+    {/volist}
+	 {notempty name="isModal"}  
+	<script>
+ 		jQuery('.close-modal').click(function(e){
+            e.preventDefault();
+           window.parent.$('#NoPermissionModal').modal('toggle')
+        }); 
+		 jQuery('.history-back').click(function(e){
+            e.preventDefault();
+           window.parent.$('#NoPermissionModal').modal('toggle')
+        }); 
+		</script>  {/notempty}
+    {// 额外JS代码 }
+    {$extra_js|default=''}
+{/block}

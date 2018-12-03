@@ -1,0 +1,63 @@
+ 	<ul class="tree">  {volist name="form[type].options" id="option"}
+	   <li class="border m-1">
+		<div class="custom-control custom-checkbox">
+		<input type="checkbox" name="{$form[type].name}[]" id="t{$option.id}" value="{$option.id}"  class="custom-control-input">
+        <label class="custom-control-label css-input css-checkbox" for="t{$option.id}"><span></span> {$option.title}{$option.id}</label>
+		</div>
+	   <ul>
+		{notempty name="option['child']"}
+		 
+		{volist name="option['child']" id="option_to"}
+		 <li>
+		 <div class="custom-control custom-checkbox ">
+		 <input type="checkbox" name="{$form[type].name}[]" id="t{$option_to.id}" value="{$option_to.id}"  class="custom-control-input">
+         <label class="custom-control-label css-input css-checkbox" for="t{$option_to.id}"><span></span> {$option_to.title}{$option_to.id}</label>
+		  </div>
+		{notempty name="option_to.child"}
+		<ul>
+		{volist name="option_to.child" id="option_sr"}
+		 <li><div class="custom-control custom-checkbox ">
+		<input type="checkbox" name="{$form[type].name}[]" id="t{$option_sr.id}" value="{$option_sr.id}"  class="custom-control-input">
+        <label class="custom-control-label css-input css-checkbox" for="t{$option_sr.id}"><span></span> {$option_sr.title}{$option_sr.id}</label>
+		</div>
+		   {notempty name="option_sr.child"}
+		  <ul>
+		  
+		   {volist name="option_sr.child" id="option_fo"}
+		  	<li class="form-inline" style="display: inline-block;">
+			<div class="form-check-inline custom-control custom-checkbox  ">
+		<input type="checkbox" name="{$form[type].name}[]" id="t{$option_fo.id}" value="{$option_fo.id}"  class="custom-control-input">
+        <label class="custom-control-label css-input css-checkbox" for="t{$option_fo.id}"><span></span> {$option_fo.title}{$option_fo.id}</label>
+		</div>
+		 </li>
+		   {/volist}
+		    </ul>{/notempty}
+		 {/volist}
+		 </ul>{/notempty}
+		{/volist}
+		 </ul>{/notempty}
+        {/volist}  </ul>
+
+<style>ul.tree, ul.tree ul {
+ list-style-type: none;
+ background: url(images/vline.png) repeat-y;
+ margin: 0;
+ padding: 0;
+}
+
+ul.tree ul {
+ margin-left: 10px;
+}
+
+ul.tree li {
+ margin: 0;
+ padding: 0 12px;
+ line-height: 20px;
+ background: url(images/node.png) no-repeat;
+ color: #369;
+ font-weight: bold;
+}
+ul.tree li:last-child {
+ background: #fff url(images/lastnode.png) no-repeat;
+}</style>
+       

@@ -1,2 +1,3 @@
-# builder
-快速构造Bootstrap table(X-editable)列表、表单
+#页面构建 for thinkphph5.2
+表单、Bootstrap4.0 table(X-editable)列表
+
